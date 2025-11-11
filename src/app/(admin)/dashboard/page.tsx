@@ -157,14 +157,11 @@ function Toast({
   return (
       <div className="fixed right-4 top-4 z-[100]">
         <div
-            className={`min-w-[260px] max-w-[480px] rounded-xl border p-3 shadow-lg ${palette}`}
+            className={`min-w=[260px] max-w-[480px] rounded-xl border p-3 shadow-lg ${palette}`}
         >
           <div className="flex items-start gap-3">
             <div className="font-semibold">{title}</div>
-            <button
-                onClick={onClose}
-                className="ml-auto text-xs opacity-80 hover:opacity-100"
-            >
+            <button onClick={onClose} className="ml-auto text-xs opacity-80 hover:opacity-100">
               ✕
             </button>
           </div>
@@ -395,7 +392,7 @@ export default function Dashboard() {
     if (!body) return showToast("error", "Write a message first");
 
     const subjCore = t.subject && t.subject.trim() ? t.subject : "(no subject)";
-    const subject = `[SolMate Support] ${subjCore}${t.deviceId ? ` — ${t.deviceId}` : ""} — ${t.id}`;
+    const subject = `[SolMate Support] ${subjCore}${t.deviceId ? ` • ${t.deviceId}` : ""} • ${t.id}`;
 
     try {
       setSending((p) => ({ ...p, [k]: true }));
@@ -470,7 +467,7 @@ export default function Dashboard() {
       // Page 1. Users & Devices list
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
-      doc.text("SolMate Admin Export — Users & Devices", margin.left, 40);
+      doc.text("SolMate Admin Export • Users & Devices", margin.left, 40);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
       const ts = new Date().toLocaleString();
@@ -518,7 +515,7 @@ export default function Dashboard() {
       doc.addPage("landscape");
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
-      doc.text("SolMate Admin Export — Devices", margin.left, 40);
+      doc.text("SolMate Admin Export • Devices", margin.left, 40);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
 
@@ -568,7 +565,7 @@ export default function Dashboard() {
       doc.addPage("landscape");
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
-      doc.text("SolMate Admin Export — Tickets", margin.left, 40);
+      doc.text("SolMate Admin Export • Tickets", margin.left, 40);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(10);
       doc.text(
@@ -689,7 +686,7 @@ export default function Dashboard() {
           <Stat title="Offline" value={offlineDevices} icon={<WifiOff className="h-5 w-5" />} tone="muted" />
         </div>
 
-        {/* Users & Devices Table (Users view only shows Device List) */}
+        {/* Users & Devices Table */}
         <section className="px-6 pb-6 md:px-8">
           <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
             <div className="max-h-[58vh] overflow-auto">
@@ -727,7 +724,7 @@ export default function Dashboard() {
           </div>
         </section>
 
-        {/* Device Database Table with BIG Paired Users panel per row */}
+        {/* Device Database Table with Paired Users panel */}
         <section className="px-6 pb-6 md:px-8">
           <h3 className="mb-2 text-lg font-semibold">Device Database</h3>
           <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
@@ -885,7 +882,17 @@ export default function Dashboard() {
 
         {/* Tickets Section */}
         <section className="px-6 pb-8 md:px-8">
-          <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white">
+          {/* Added title for the tickets block */}
+          <div className="mt-4 mb-2 flex items-end justify-between">
+            <div>
+              <h3 className="text-lg font-semibold">Tickets</h3>
+              <p className="text-xs text-slate-600">
+                Support and device tickets visible with filters above.
+              </p>
+            </div>
+          </div>
+
+          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
             <div className="max-h-[50vh] overflow-auto">
               <table className="w-full text-sm">
                 <thead className="sticky top-0 z-10 bg-slate-50">

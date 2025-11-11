@@ -67,15 +67,16 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <div className="grid min-h-screen place-items-center px-6">
           <div className="max-w-lg rounded-2xl border border-white/10 bg-white/10 p-6 text-slate-100 backdrop-blur-md shadow-2xl space-y-4">
             <div className="flex items-center gap-3">
-              <Image
-                src="/solmate-logo.png"
-                alt="SolMate Logo"
-                width={40}
-                height={40}
-                className="rounded-md"
-                priority
-              />
-              <div className="leading-tight">
+                <Image
+                    src={`${process.env.NODE_ENV === "production" ? "/solmate-admin" : ""}/solmate-logo.png`}
+                    alt="SolMate"
+                    width={72}
+                    height={72}
+                    className="rounded-xl ring-1 ring-white/25"
+                    priority
+                />
+
+                <div className="leading-tight">
                 <h1 className="text-lg font-semibold">SolMate Admin</h1>
                 <p className="text-xs text-slate-200/80">Monitoring &amp; Reporting</p>
               </div>

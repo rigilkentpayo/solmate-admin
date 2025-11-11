@@ -73,13 +73,14 @@ export default function LoginPage() {
               {/* Brand header (larger logo + high contrast) */}
               <div className="mb-6 flex items-center gap-4">
                 <Image
-                  src="/solmate-logo.png" // ensure this exists in /public
-                  alt="SolMate"
-                  width={72}
-                  height={72}
-                  className="rounded-xl ring-1 ring-white/25"
-                  priority
+                    src={`${process.env.NODE_ENV === "production" ? "/solmate-admin" : ""}/solmate-logo.png`}
+                    alt="SolMate"
+                    width={72}
+                    height={72}
+                    className="rounded-xl ring-1 ring-white/25"
+                    priority
                 />
+
                 <div className="leading-tight">
                   <h1 className="text-2xl font-semibold text-white">SolMate Admin</h1>
                   <p className="text-sm text-white/85">Secure access • Monitoring &amp; Reporting</p>

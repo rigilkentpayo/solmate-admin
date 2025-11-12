@@ -1,17 +1,16 @@
 // next.config.ts
 import type { NextConfig } from "next";
+const TARGET = process.env.NEXT_PUBLIC_TARGET || "domain"; // 'domain' | 'ghpages'
 
-const isProd = process.env.NODE_ENV === "production";
-const repo = "/solmate-admin"; // must start with a slash
+const isGhPages = TARGET === "ghpages";
+const repo = "/solmate-admin";
 
 const nextConfig: NextConfig = {
     output: "export",
     images: { unoptimized: true },
     trailingSlash: true,
-    basePath: isProd ? repo : "",
-    assetPrefix: isProd ? `${repo}/` : "",
-    eslint: { ignoreDuringBuilds: true },      // skip lint errors during build
-    // typescript: { ignoreBuildErrors: true }, // enable only if type errors block build
+    basePath: isGhPages ? repo : "",
+    assetPrefix: isGhPages ? `${repo}/` : "",
+    eslint: { ignoreDuringBuilds: true },
 };
-
 export default nextConfig;

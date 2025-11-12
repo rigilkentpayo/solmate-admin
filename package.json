@@ -3,17 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
     "clean": "rimraf .next out",
+    "dev": "next dev",
+    "dev:ghpages": "cross-env DEPLOY_TARGET=ghpages next dev",
     "build": "next build",
-    "build:domain": "cross-env NEXT_PUBLIC_TARGET=domain next build",
-    "build:ghpages": "cross-env NEXT_PUBLIC_TARGET=ghpages next build",
-    "start": "npx serve out -p 3000",
-    "predeploy": "npm run build:domain",
-    "deploy": "echo solmateadmin.live > out/CNAME && gh-pages -d out"
-
+    "build:ghpages": "cross-env DEPLOY_TARGET=ghpages next build",
+    "serve:out": "npx serve out -p 3001",
+    "deploy:ghpages": "npm run build:ghpages && node -e \"require('fs').writeFileSync('out/.nojekyll','')\" && gh-pages -d out -b gh-pages -f"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

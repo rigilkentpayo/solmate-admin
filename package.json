@@ -4,15 +4,12 @@
   "private": true,
   "scripts": {
     "clean": "rimraf .next out",
-    "dev": "next dev",
-    "dev:ghpages": "cross-env DEPLOY_TARGET=ghpages next dev",
-    "build": "next build",
-    "build:domain": "cross-env DEPLOY_TARGET=domain next build",
-    "build:ghpages": "cross-env DEPLOY_TARGET=ghpages next build",
+    "build:ghpages": "next build",
+    "post:mirror": "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force -Path out\\solmate-admin | Out-Null; Get-ChildItem out | Where-Object { $_.Name -ne 'solmate-admin' } | Copy-Item -Recurse -Force -Destination out\\solmate-admin; New-Item -Path out\\.nojekyll -ItemType File -Force | Out-Null\"",
     "serve:out": "npx serve out -p 3001",
-    "deploy:domain": "npm run clean && cross-env DEPLOY_TARGET=domain next build && node -e \"require('fs').writeFileSync('out/CNAME','solmateadmin.live')\" && gh-pages -d out -b gh-pages -f -m \"domain deploy\"",
-    "deploy:ghpages": "npm run clean && cross-env DEPLOY_TARGET=ghpages next build && node -e \"require('fs').writeFileSync('out/.nojekyll','')\" && gh-pages -d out -b gh-pages -f -m \"ghpages deploy\""
+    "deploy:ghpages": "npm run clean && npm run build:ghpages && npm run post:mirror && gh-pages -d out -b gh-pages -f"
   },
+
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@tanstack/react-query": "^5.90.2",

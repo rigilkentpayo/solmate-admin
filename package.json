@@ -7,9 +7,11 @@
     "dev": "next dev",
     "dev:ghpages": "cross-env DEPLOY_TARGET=ghpages next dev",
     "build": "next build",
+    "build:domain": "cross-env DEPLOY_TARGET=domain next build",
     "build:ghpages": "cross-env DEPLOY_TARGET=ghpages next build",
     "serve:out": "npx serve out -p 3001",
-    "deploy:ghpages": "npm run build:ghpages && node -e \"require('fs').writeFileSync('out/.nojekyll','')\" && gh-pages -d out -b gh-pages -f"
+    "deploy:domain": "npm run clean && cross-env DEPLOY_TARGET=domain next build && node -e \"require('fs').writeFileSync('out/CNAME','solmateadmin.live')\" && gh-pages -d out -b gh-pages -f -m \"domain deploy\"",
+    "deploy:ghpages": "npm run clean && cross-env DEPLOY_TARGET=ghpages next build && node -e \"require('fs').writeFileSync('out/.nojekyll','')\" && gh-pages -d out -b gh-pages -f -m \"ghpages deploy\""
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
